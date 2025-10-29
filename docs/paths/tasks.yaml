@@ -44,4 +44,35 @@ post:
           schema:
             $ref: ../components/schemas/Task.yaml
     '400':
-      $ref: ../components/responses/BadRequest.yaml
+      $ref: ../components/schemas/responses/BadRequest.yaml
+
+# NEW
+
+/tasks/{id}:
+  get:
+    summary: Get a single task by ID
+    tags:
+      - Tasks
+    parameters:
+      - name: id
+        in: path
+        required: true
+        description: ID of the task to retrieve
+        schema:
+          type: integer
+          example: 1
+    responses:
+      '200':
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: ../components/schemas/Task.yaml
+      '400':
+        description: Invalid ID (not a number)
+        content:
+          application/json:
+            schema:
+              $ref: ../components/responses/ValidationError.yaml
+      '404':
+        $ref: ../components/responses/NotFoundError.yaml
